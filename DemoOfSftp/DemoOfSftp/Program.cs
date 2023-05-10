@@ -3,9 +3,6 @@ using System.Configuration;
 using System.IO;
 using Renci.SshNet;
 
-
-
-
 class Program
 {
     static void Main()
@@ -13,28 +10,15 @@ class Program
         string sftpPath = ConfigurationManager.AppSettings["UploadFile"];
         string localfilePath = ConfigurationManager.AppSettings["DownloadFile"];
 
-
-
         using (var client = GetSftpClient())
         {
             client.Connect();
-
-
-
             UploadFiles(client, sftpPath, localfilePath);
             DownloadFiles(client, sftpPath, localfilePath);
-
-
-
             client.Disconnect();
         }
-
-
-
         Console.WriteLine("Done.");
     }
-
-
 
     static void UploadFiles(SftpClient client, string sftpPath, string localfilePath)
     {
@@ -50,11 +34,6 @@ class Program
             }
         }
     }
-
-
-
-
-
     static void DownloadFiles(SftpClient client, string sftpPath, string localfilePath)
     {
         var directory = new DirectoryInfo(localfilePath);
@@ -72,18 +51,12 @@ class Program
         }
     }
 
-
-
-
     static SftpClient GetSftpClient()
     {
         var host = ConfigurationManager.AppSettings["SftpHost"];
         var port = int.Parse(ConfigurationManager.AppSettings["SftpPort"]);
         var username = ConfigurationManager.AppSettings["SftpUsername"];
         var password = ConfigurationManager.AppSettings["SftpPassword"];
-
-
-
         return new SftpClient(host, port, username, password);
     }
 }
